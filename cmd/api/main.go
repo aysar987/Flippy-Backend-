@@ -21,6 +21,10 @@ func main() {
 	}
 	defer db.Close()
 
+	if err := repository.RunInitialSchema(ctx, db); err != nil {
+		log.Fatalf("failed to run initial schema: %v", err)
+	}
+
 	srv := &http.Server{
 		Addr:              cfg.Address(),
 		Handler:           server.NewRouter(cfg, db),
