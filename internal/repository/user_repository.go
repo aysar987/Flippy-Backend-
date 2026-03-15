@@ -46,8 +46,8 @@ func NewUserRepository(db *pgxpool.Pool) UserRepository {
 
 func (r UserRepository) Create(ctx context.Context, input domain.RegisterInput, passwordHash string) (domain.User, error) {
 	query := `
-		INSERT INTO users (username, email, password_hash, full_name)
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO users (username, email, password_hash, full_name, status)
+		VALUES ($1, $2, $3, $4, 'pending')
 		RETURNING id, username, email, full_name, role, status, last_login_at, created_at, updated_at, password_hash
 	`
 
