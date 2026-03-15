@@ -21,8 +21,8 @@ func main() {
 	}
 	defer db.Close()
 
-	if err := repository.RunInitialSchema(ctx, db); err != nil {
-		log.Fatalf("failed to run initial schema: %v", err)
+	if err := repository.RunMigrations(ctx, db); err != nil {
+		log.Fatalf("failed to run database migrations: %v", err)
 	}
 
 	srv := &http.Server{
